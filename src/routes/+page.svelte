@@ -10,10 +10,12 @@
   import { calcStats, lastfm, loadLastfm } from "$lib/lastfm.svelte";
   import { onMount } from "svelte";
 
-  let username = $state($page.url.searchParams.get("username") ?? "");
-  let period = $state($page.url.searchParams.get("period") ?? "");
+  let username = $state("");
+  let period = $state("overall");
 
   onMount(() => {
+    username = $page.url.searchParams.get("username") ?? "";
+    period = $page.url.searchParams.get("period") ?? "";
     if (username) {
       load(null);
     }
