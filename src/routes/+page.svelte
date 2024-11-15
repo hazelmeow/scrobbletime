@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
   import Art from "$lib/Art.svelte";
   import {
     humanizeBigDuration,
@@ -6,10 +8,28 @@
     humanizeTrackDuration,
   } from "$lib/humanize";
   import { calcStats, lastfm, loadLastfm } from "$lib/lastfm.svelte";
-  import { onMount, untrack } from "svelte";
+  import { onMount } from "svelte";
 
-  let username = $state("");
-  let period = $state("overall");
+  let username = $state($page.url.searchParams.get("username") ?? "");
+  let period = $state($page.url.searchParams.get("period") ?? "");
+
+  onMount(() => {
+    if (username) {
+      load(null);
+    }
+  });
+
+  $effect(() => {
+    const params = new URLSearchParams({
+      username,
+      period,
+    });
+    goto("/?" + params.toString(), {
+      replaceState: true,
+      keepFocus: true,
+      noScroll: true,
+    });
+  });
 
   let listMode = $state<"tracks" | "artists">("tracks");
   let sortMode = $state<"duration" | "scrobbles">("duration");
@@ -91,7 +111,8 @@
     requestAnimationFrame(animate);
   });
 
-  const load = () => {
+  const load = (e: Event | null) => {
+    e?.preventDefault();
     if (!username) return;
     animTime = 0;
     loadLastfm(username, period);
