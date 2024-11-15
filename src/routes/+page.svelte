@@ -14,8 +14,14 @@
   let period = $state("overall");
 
   onMount(() => {
+    let restorePeriod = $page.url.searchParams.get("period") ?? "overall";
+    if (!PERIODS.find((p) => p.key === restorePeriod)) {
+      restorePeriod = "overall";
+    }
+    period = restorePeriod;
+
     username = $page.url.searchParams.get("username") ?? "";
-    period = $page.url.searchParams.get("period") ?? "";
+
     if (username) {
       load(null);
     }
