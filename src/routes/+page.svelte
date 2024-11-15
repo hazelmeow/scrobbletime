@@ -138,7 +138,11 @@
   <div class="header row">
     <h1 class="logo">scrobbletime</h1>
 
-    <span>brought to you by <a href="https://meows.zip">meows.zip</a></span>
+    <span>
+      brought to you by <a href="https://meows.zip" class="meowszip"
+        >meows.zip</a
+      >
+    </span>
   </div>
 
   <form class="controls row">
@@ -277,16 +281,16 @@
         </div> -->
 
         <div class="row bold">
-          <span class="width-100 ellipsize">
+          <a href={item.leftUrl} class="plainlink ellipsize">
             {item.leftLabel}
-          </span>
+          </a>
         </div>
 
         {#if listMode === "tracks"}
           <div class="row">
-            <span class="ellipsize">
+            <a href={item.rightUrl} class="plainlink ellipsize">
               {item.rightLabel}
-            </span>
+            </a>
           </div>
         {/if}
 
@@ -354,10 +358,10 @@
     box-shadow: 4px 4px #0003;
   }
 
-  a {
+  .meowszip {
     color: var(--color-bg);
   }
-  a:focus-visible {
+  .meowszip:focus-visible {
     outline: 1px solid var(--color-bg);
     outline-offset: 2px;
   }
@@ -486,6 +490,16 @@
     overflow: hidden;
   }
 
+  .plainlink {
+    color: black;
+    text-decoration: none;
+    outline: none;
+  }
+  .plainlink:hover,
+  .plainlink:focus-visible {
+    text-decoration: underline;
+  }
+
   .halfbr {
     height: 4px;
   }
@@ -503,9 +517,6 @@
   }
   .light {
     font-weight: 300;
-  }
-  .width-100 {
-    width: 100%;
   }
   .ellipsize {
     width: 100%;
