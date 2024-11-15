@@ -34,8 +34,10 @@
   let listMode = $state<"tracks" | "artists">("tracks");
   let sortMode = $state<"duration" | "scrobbles">("duration");
 
-  let stats = $derived.by(() => {
-    return calcStats(lastfm.tracks ?? []);
+  const initialStats = calcStats([]);
+  let stats = $state(initialStats);
+  $effect(() => {
+    stats = calcStats(lastfm.tracks ?? []);
   });
 
   let estimateDurations = $state(false);
