@@ -139,8 +139,10 @@
     <h1 class="logo">scrobbletime</h1>
 
     <span>
-      brought to you by <a href="https://meows.zip" class="meowszip"
-        >meows.zip</a
+      brought to you by <a
+        href="https://meows.zip"
+        target="_blank"
+        class="meowszip">meows.zip</a
       >
     </span>
   </div>
