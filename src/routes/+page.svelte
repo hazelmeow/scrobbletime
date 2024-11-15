@@ -311,7 +311,9 @@
               title="average including estimates"
             >
               ~{humanizeTrackDuration(
-                Math.round(item.totalDurationEstimate / item.playcount)
+                item.playcount === 0
+                  ? stats.averageDuration
+                  : Math.round(item.totalDuration / item.playcount)
               )}
             </em>&nbsp;&equals;&nbsp;<em class="estimate" title="estimated">
               {humanizeTotalDuration(item.totalDurationEstimate)}
